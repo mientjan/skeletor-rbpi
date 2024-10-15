@@ -12,7 +12,7 @@ async function test(){
     const pwm = await createPWM(options);
     // Set channel 0 to turn on on step 42 and off on step 255
     // (with optional callback)
-    pwm.setPulseRange(0, 42, 255, function() {
+    pwm.setPulseRange(4, 42, 255, function() {
         if (err) {
             console.error("Error setting pulse range.");
         } else {
@@ -21,10 +21,10 @@ async function test(){
     });
 
     // Set the pulse length to 1500 microseconds for channel 2
-    pwm.setPulseLength(2, 1500);
+    pwm.setPulseLength(4, 1500);
 
     // Set the duty cycle to 25% for channel 8
-    pwm.setDutyCycle(8, 0.25);
+    pwm.setDutyCycle(5, 0.25);
 
     // Turn off all power to channel 6
     // (with optional callback)
