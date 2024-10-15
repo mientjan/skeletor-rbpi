@@ -1,0 +1,14 @@
+{
+  "name": "skeletor-rbpi",
+  "version": "1.0.0",
+  "description": "Project for halloween to control a skeleton's head mouth and arms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node src/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pca9685": "^5.0.0"
+  }
+}
