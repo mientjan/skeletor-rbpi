@@ -4,7 +4,7 @@ var createPWM = require("./lib/createPWM");
 async function test(){
     console.log(i2cBus);
     var options = {
-        i2c: i2cBus.openSync(1),
+        i2c: i2cBus.openSync(2),
         address: 0x40,
         frequency: 50,
         debug: false
