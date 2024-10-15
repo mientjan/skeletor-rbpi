@@ -2,15 +2,19 @@ var i2cBus = require("i2c-bus");
 var createPWM = require("./lib/createPWM");
 
 async function test(){
-    console.log(i2cBus);
     var options = {
-        i2c: i2cBus.openSync(2),
+        i2c: i2cBus.openSync(1),
         address: 0x40,
         frequency: 50,
         debug: false
     };
 
-    const pwm = await createPWM(options);
+    try {
+        var pwm = await createPWM(options);
+    } catch (err) {
+        console.error("Error initializing PWM:", err);
+        process.exit(-1);
+    }
     // Set channel 0 to turn on on step 42 and off on step 255
     // (with optional callback)
 
