@@ -1,5 +1,6 @@
 var i2cBus = require("i2c-bus");
 var Pca9685Driver = require("pca9685").Pca9685Driver;
+var createPWM = require("./lib/createPWM");
 
 async function test(){
     var options = {
@@ -12,6 +13,9 @@ async function test(){
     const pwm = await createPWM(options);
     // Set channel 0 to turn on on step 42 and off on step 255
     // (with optional callback)
+
+    // Turn on channel 3 (100% power)
+    pwm.channelOn(3);
     pwm.setPulseRange(4, 42, 255, function() {
         if (err) {
             console.error("Error setting pulse range.");
@@ -39,3 +43,5 @@ async function test(){
     // Turn on channel 3 (100% power)
     pwm.channelOn(3);
 }
+
+test();
