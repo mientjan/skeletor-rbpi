@@ -15,7 +15,7 @@ async function test(){
     pwm.setPulseLength(4, 1500);
 
     await new Promise((resolve, reject) => {
-        pwm.setPulseRange(4, 42*Math.random()|0, 255, resolve);
+        pwm.setPulseRange(4, 42, 255*Math.random()|0, resolve);
     });
 
     // pwm.channelOn(5);
