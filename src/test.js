@@ -21,7 +21,7 @@ async function test(){
     // Turn on channel 3 (100% power)
     pwm.channelOn(4);
     pwm.channelOn(5);
-    pwm.setPulseRange(4, 42, 255, function() {
+    pwm.setPulseRange(4, 42, 255, function(err) {
         if (err) {
             console.error("Error setting pulse range.");
         } else {
@@ -37,7 +37,7 @@ async function test(){
 
     // Turn off all power to channel 6
     // (with optional callback)
-    pwm.channelOff(6, function() {
+    pwm.channelOff(6, function(err) {
         if (err) {
             console.error("Error turning off channel.");
         } else {
