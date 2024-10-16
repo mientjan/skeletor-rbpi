@@ -12,10 +12,15 @@ async function test(){
     const pwm = await createPWM(options);
 
     pwm.channelOn(4);
-    pwm.channelOn(5);
-
     pwm.setPulseLength(4, 1500);
-    pwm.setPulseLength(5, 3000);
+
+    await new Promise((resolve, reject) => {
+        pwm.setPulseRange(4, 42, 255, resolve);
+    });
+
+    // pwm.channelOn(5);
+
+    // pwm.setPulseLength(5, 3000);
 
     // // Set channel 0 to turn on on step 42 and off on step 255
     // // (with optional callback)
