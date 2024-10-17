@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 
 let _is_rbpi = null;
 function isRBPI() {
