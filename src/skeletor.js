@@ -1,5 +1,6 @@
 
-const isPi = require('detect-rpi');
+const fs = require("fs");
+const isRBPI = require("./lib/isRBPI");
 
 let _skeletor_instance = null;
 
@@ -20,7 +21,7 @@ class Skeletor {
 
 
 
-        if (isPi()) {
+        if (isRBPI()) {
 
             const createPWM = require("./lib/createPWM");
             const i2cBus = require("i2c-bus");
@@ -44,7 +45,7 @@ class Skeletor {
 
     async test() {
 
-        if (isPi()) {
+        if (isRBPI()) {
             const pwm = await this.pwm;
 
             pwm.channelOn(4);
