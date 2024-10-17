@@ -11,6 +11,16 @@ function sendInstruction() {
     console.log('Instruction sent:', instruction);
 }
 
+// Function to send an instruction
+function sendServo(type, value) {
+    // const instruction = document.getElementById('instruction').value;
+
+    // Emit the instruction to the server
+    socket.emit('instruction', {type, value: parseInt(value)});
+
+    console.log('Instruction sent:', [type, value]);
+}
+
 // Listen for instruction broadcasted by the server
 socket.on('instruction', (data) => {
     console.log('Received instruction from server:', data);

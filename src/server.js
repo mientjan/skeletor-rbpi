@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const path = require('path');
+const Skeletor = require('./skeletor');
 
 // Initialize express app and server
 const app = express();
@@ -16,6 +17,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'control', 'index.html'));
 });
 
+
+
 // Handle socket connection
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -23,6 +26,17 @@ io.on('connection', (socket) => {
     // Listen for incoming instructions
     socket.on('instruction', (data) => {
         console.log('Received instruction:', data);
+
+        let skeletor = Skeletor.getInstance();
+
+        if(data.type === 'on') {
+            skeletor.setOnStep(data.value);
+        }
+        if(data.type === 'off') {
+            skeletor.setOffStep(data.value);
+        }
+
+        skeletor.test();
 
         // Process the instruction (you can add any logic here)
         // For example, broadcast the instruction to other clients

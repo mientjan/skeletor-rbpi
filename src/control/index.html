@@ -11,6 +11,12 @@
 <input type="text" id="instruction" placeholder="Enter instruction" />
 <button onclick="sendInstruction()">Send Instruction</button>
 
+<h2>Control Servo</h2>
+<h3>OnStep</h3>
+<input type="range" id="servo-off" min="0" max="180" value="90" oninput="sendServo('on', this.value)">
+<h3>OffStep</h3>
+<input type="range" id="servo-on" min="0" max="255" value="90" oninput="sendServo('off', this.value)">
+
 <script src="js/socket.io.js"></script>
 <script src="js/script.js"></script>
 </body>
