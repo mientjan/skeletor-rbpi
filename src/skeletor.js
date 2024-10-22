@@ -74,6 +74,7 @@ class Skeletor {
 
             pwm.channelOn(this.channel);
 
+
             // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
             pwm.setPulseLength(this.channel, 1000);
 
@@ -81,7 +82,7 @@ class Skeletor {
                 setTimeout(() => {
                     pwm.setPulseLength(this.channel, 1500);
                     resolve();
-                }, 1000);
+                }, 3000);
             });
 
             await new Promise((resolve, reject) => {
