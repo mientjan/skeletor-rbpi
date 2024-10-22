@@ -13,11 +13,22 @@
 
 <h2>Control Servo</h2>
 <h3>Angle</h3>
-<input type="range" id="servo-off" min="-90" max="90" value="0" oninput="sendServo('angle', this.value)">
-<!--<h3>OffStep</h3>-->
-<!--<input type="range" id="servo-on" min="0" max="255" value="90" oninput="sendServo('off', this.value)">-->
+<input type="range" id="angle" min="-90" max="90" value="0" oninput="sendServo('angle', this.value)">
+
+<h3>Pulse</h3>
+<input type="range" id="Pulse" min="-90" max="90" value="0" oninput="sendServo('pulse', this.value)">
+<h3>OnStep</h3>
+<input type="range" id="servo-off" min="0" max="4096" value="0" oninput="sendServo('on', this.value)">
+<input type="range" id="servo-on" min="0" max="4096" value="90" oninput="sendServo('off', this.value)">
 <h3>channel</h3>
 <input type="text" value="5" oninput="sendServo('channel', this.value)">
+<h3>type</h3>
+<select id="type" onchange="sendServo('type', this.value)">
+    <option value="test1">test1</option>
+    <option value="test2">test2</option>
+</select>
+<h3>go</h3>
+<input type="button" onclick="sendServo('go', 1)">
 <!--<input type="text" value="1500" oninput="sendServo('pulse', this.value)">-->
 
 <script src="js/socket.io.js"></script>

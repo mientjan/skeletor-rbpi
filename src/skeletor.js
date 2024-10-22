@@ -60,11 +60,42 @@ class Skeletor {
         this.pulseLength = parseInt(length, 10);
     }
 
+    setType(type) {
+        if(!type){
+            return;
+        }
+        this.type = type;
+    }
+
     setAngle(angle) {
         if(!angle){
             return;
         }
         this.angle = parseInt(angle, 10);
+    }
+
+    async go() {
+        if (isRBPI()) {
+            switch (this.type) {
+                case 'test1': {
+
+                    const pwm = await this.pwm;
+
+                    pwm.channelOn(this.channel);
+                    pwm.setPulseLength(this.channel, 5000);
+                    break;
+                }
+
+                case 'test2': {
+
+                    const pwm = await this.pwm;
+
+                    pwm.channelOn(this.channel);
+                    pwm.setPulseRange(this.channel, this.onStep, this.offStep);
+                    break;
+                }
+            }
+        }
     }
 
     async test() {
@@ -78,41 +109,41 @@ class Skeletor {
             // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
             pwm.setPulseLength(this.channel, 1000, onStep);
 
-            await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-                    resolve();
-                }, 3000);
-            });
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
+            //         resolve();
+            //     }, 3000);
+            // });
+            //
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         pwm.setPulseLength(this.channel, 1500, );
+            //         resolve();
+            //     }, 3000);
+            // });
+            //
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         pwm.setPulseLength(this.channel, 2000);
+            //         resolve();
+            //     }, 1000);
+            // });
+            //
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(() => {
+            //         pwm.setPulseLength(this.channel, 1500);
+            //         resolve();
+            //     }, 1000);
+            // });
 
-            await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    pwm.setPulseLength(this.channel, 1500, );
-                    resolve();
-                }, 3000);
-            });
-
-            await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    pwm.setPulseLength(this.channel, 2000);
-                    resolve();
-                }, 1000);
-            });
-
-            await new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    pwm.setPulseLength(this.channel, 1500);
-                    resolve();
-                }, 1000);
-            });
-
+            pwm.setPulseRange(this.channel, this.onStep, this.offStep);
 
 
 
 
 
             // await new Promise((resolve, reject) => {
-            //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
             // });
         } else {
             console.log(this.channel, this.pulseLength, this.onStep, this.offStep);

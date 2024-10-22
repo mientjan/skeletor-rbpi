@@ -44,10 +44,19 @@ io.on('connection', (socket) => {
             case 'pulse':
                 skeletor.setPulseLength(data.value);
                 break;
+
+            case 'type':
+                skeletor.setType(data.value);
+                break;
+
+            case 'go':{
+                    skeletor.go();
+                break;
+            }
         }
 
 
-        skeletor.test();
+
 
         // Process the instruction (you can add any logic here)
         // For example, broadcast the instruction to other clients
