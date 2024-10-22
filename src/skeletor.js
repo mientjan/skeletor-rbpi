@@ -88,7 +88,7 @@ class Skeletor {
                     const pwm = await this.pwm;
 
                     pwm.channelOn(this.channel);
-                    pwm.setPulseLength(this.channel, 5000);
+                    pwm.setPulseLength(this.channel, this.pulseLength);
                     break;
                 }
 
