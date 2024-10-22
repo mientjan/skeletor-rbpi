@@ -18,6 +18,8 @@ class Skeletor {
 
         this.onStep = 42;
         this.offStep = 255;
+        this.channel = 4;
+        this.pulseLength = 1500;
 
 
 
@@ -29,18 +31,26 @@ class Skeletor {
             this.pwm = createPWM({
                 i2c: i2cBus.openSync(1),
                 address: 0x40,
-                frequency: 50,
-                debug: false
+                frequency: 100,
+                debug: true
             });
         }
     }
 
     setOnStep(step) {
-        this.onStep = step;
+        this.onStep = parseFloat(step);
     }
 
     setOffStep(step) {
-        this.offStep = step;
+        this.offStep = parseFloat(step);
+    }
+
+    setChannel(channel) {
+        this.channel = parseInt(channel, 10);
+    }
+
+    setPulseLength(length) {
+        this.pulseLength = parseInt(length, 10);
     }
 
     async test() {
@@ -48,14 +58,14 @@ class Skeletor {
         if (isRBPI()) {
             const pwm = await this.pwm;
 
-            pwm.channelOn(4);
-            pwm.setPulseLength(4, 1500);
+            pwm.channelOn(this.channel);
+            pwm.setPulseLength(this.channel, this.pulseLength);
 
             await new Promise((resolve, reject) => {
-                pwm.setPulseRange(4, this.onStep, this.offStep, resolve);
+                pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
             });
         } else {
-            console.log(this.onStep, this.offStep);
+            console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
         }
 
 

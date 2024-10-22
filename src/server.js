@@ -29,12 +29,21 @@ io.on('connection', (socket) => {
 
         let skeletor = Skeletor.getInstance();
 
-        if(data.type === 'on') {
-            skeletor.setOnStep(data.value);
+        switch (data.type) {
+            case 'on':
+                skeletor.setOnStep(data.value);
+                break;
+            case 'off':
+                skeletor.setOffStep(data.value);
+                break;
+            case 'channel':
+                skeletor.setChannel(data.value);
+                break;
+            case 'pulse':
+                skeletor.setPulseLength(data.value);
+                break;
         }
-        if(data.type === 'off') {
-            skeletor.setOffStep(data.value);
-        }
+
 
         skeletor.test();
 
