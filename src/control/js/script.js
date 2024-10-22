@@ -16,7 +16,7 @@ function sendServo(type, value) {
     // const instruction = document.getElementById('instruction').value;
 
     // Emit the instruction to the server
-    socket.emit('instruction', {type, value: parseInt(value)});
+    socket.emit('instruction', {type, value});
 
     console.log('Instruction sent:', [type, value]);
 }
