@@ -86,8 +86,8 @@ class Skeletor {
     pulseLengthForAngle(angle) {
         const minPulseLength = 500;   // Pulse length at 0 degrees (µs)
         const maxPulseLength = 2500;  // Pulse length at 180 degrees (µs)
-        const minAngle = 0;           // Minimum angle (degrees)
-        const maxAngle = 180;         // Maximum angle (degrees)
+        const minAngle = -90;           // Minimum angle (degrees)
+        const maxAngle = 90;         // Maximum angle (degrees)
 
         // Linear mapping of angle to pulse length
         return ((angle - minAngle) * (maxPulseLength - minPulseLength) / (maxAngle - minAngle)) + minPulseLength;
