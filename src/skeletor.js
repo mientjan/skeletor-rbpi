@@ -75,10 +75,33 @@ class Skeletor {
             pwm.channelOn(this.channel);
 
             // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-            pwm.setPulseLength(this.channel, 0);
-            setTimeout(() => {
-                pwm.setPulseLength(this.channel, 1500);
-            }, 1000); 
+            pwm.setPulseLength(this.channel, 1000);
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    pwm.setPulseLength(this.channel, 1500);
+                    resolve();
+                });
+            });
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    pwm.setPulseLength(this.channel, 2000);
+                    resolve();
+                });
+            });
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    pwm.setPulseLength(this.channel, 1500);
+                    resolve();
+                });
+            });
+
+
+
+
+
 
             // await new Promise((resolve, reject) => {
             //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
@@ -87,6 +110,24 @@ class Skeletor {
             console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
         }
     }
+
+    // updateStep() {
+    //
+    //     if (isRBPI()) {
+    //         const pwm = await this.pwm;
+    //
+    //         pwm.channelOn(this.channel);
+    //
+    //         // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
+    //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
+    //
+    //         // await new Promise((resolve, reject) => {
+    //         //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
+    //         // });
+    //     } else {
+    //         console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
+    //     }
+    // }
 
     pulseLengthForAngle(angle) {
         const minPulseLength = 500;   // Pulse length at 0 degrees (µs)
