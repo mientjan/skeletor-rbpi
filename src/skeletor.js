@@ -73,7 +73,12 @@ class Skeletor {
             const pwm = await this.pwm;
 
             pwm.channelOn(this.channel);
-            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
+
+            // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
+            pwm.setPulseLength(this.channel, 0);
+            setTimeout(() => {
+                pwm.setPulseLength(this.channel, 1500);
+            }, 1000); 
 
             // await new Promise((resolve, reject) => {
             //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
@@ -86,8 +91,8 @@ class Skeletor {
     pulseLengthForAngle(angle) {
         const minPulseLength = 500;   // Pulse length at 0 degrees (µs)
         const maxPulseLength = 2500;  // Pulse length at 180 degrees (µs)
-        const minAngle = -90;           // Minimum angle (degrees)
-        const maxAngle = 90;         // Maximum angle (degrees)
+        const minAngle = 0;           // Minimum angle (degrees)
+        const maxAngle = 180;         // Maximum angle (degrees)
 
         // Linear mapping of angle to pulse length
         return ((angle - minAngle) * (maxPulseLength - minPulseLength) / (maxAngle - minAngle)) + minPulseLength;
