@@ -39,11 +39,17 @@ class Skeletor {
     }
 
     setOnStep(step) {
-        this.onStep = parseFloat(step);
+        step = parseFloat(step);
+        step = Math.max(0, step);
+        step = Math.min(4095, step);
+        this.onStep = step;
     }
 
     setOffStep(step) {
-        this.offStep = parseFloat(step);
+        step = parseFloat(step);
+        step = Math.max(0, step);
+        step = Math.min(4095, step);
+        this.offStep = step;
     }
 
     setChannel(channel) {
