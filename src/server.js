@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
 });
 
 
-
 // Handle socket connection
 io.on('connection', (socket) => {
     console.log('A user connected');
@@ -32,6 +31,9 @@ io.on('connection', (socket) => {
         switch (data.type) {
             case 'on':
                 skeletor.setOnStep(data.value);
+                break;
+            case 'angle':
+                skeletor.setAngle(data.value);
                 break;
             case 'off':
                 skeletor.setOffStep(data.value);

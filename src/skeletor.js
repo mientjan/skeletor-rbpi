@@ -20,6 +20,7 @@ class Skeletor {
         this.offStep = 255;
         this.channel = 4;
         this.pulseLength = 1500;
+        this.angle = 0;
 
 
 
@@ -59,22 +60,37 @@ class Skeletor {
         this.pulseLength = parseInt(length, 10);
     }
 
+    setAngle(angle) {
+        if(!angle){
+            return;
+        }
+        this.angle = parseInt(angle, 10);
+    }
+
     async test() {
 
         if (isRBPI()) {
             const pwm = await this.pwm;
 
             pwm.channelOn(this.channel);
-            pwm.setPulseLength(this.channel, this.pulseLength);
+            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
 
-            await new Promise((resolve, reject) => {
-                pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
-            });
+            // await new Promise((resolve, reject) => {
+            //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
+            // });
         } else {
             console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
         }
+    }
 
+    pulseLengthForAngle(angle) {
+        const minPulseLength = 500;   // Pulse length at 0 degrees (µs)
+        const maxPulseLength = 2500;  // Pulse length at 180 degrees (µs)
+        const minAngle = 0;           // Minimum angle (degrees)
+        const maxAngle = 180;         // Maximum angle (degrees)
 
+        // Linear mapping of angle to pulse length
+        return ((angle - minAngle) * (maxPulseLength - minPulseLength) / (maxAngle - minAngle)) + minPulseLength;
     }
 }
 
