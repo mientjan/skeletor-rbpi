@@ -82,25 +82,28 @@ class Skeletor {
 
     async go() {
         if (isRBPI()) {
-            switch (this.type) {
-                case 'test1': {
+            const pwm = await this.pwm;
+            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
 
-                    const pwm = await this.pwm;
-
-                    pwm.channelOn(this.channel);
-                    pwm.setPulseLength(this.channel, this.pulseLength);
-                    break;
-                }
-
-                case 'test2': {
-
-                    const pwm = await this.pwm;
-
-                    pwm.channelOn(this.channel);
-                    pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-                    break;
-                }
-            }
+            // switch (this.type) {
+            //     case 'test1': {
+            //
+            //         const pwm = await this.pwm;
+            //
+            //         pwm.channelOn(this.channel);
+            //         pwm.setPulseLength(this.channel, this.pulseLength);
+            //         break;
+            //     }
+            //
+            //     case 'test2': {
+            //
+            //         const pwm = await this.pwm;
+            //
+            //         pwm.channelOn(this.channel);
+            //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
+            //         break;
+            //     }
+            // }
         }
     }
 
@@ -112,8 +115,8 @@ class Skeletor {
             pwm.channelOn(this.channel);
             let onStep = 255;
 
-            // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-            pwm.setPulseLength(this.channel, 1000, onStep);
+            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
+            // pwm.setPulseLength(this.channel, 1000, onStep);
 
             // await new Promise((resolve, reject) => {
             //     setTimeout(() => {
