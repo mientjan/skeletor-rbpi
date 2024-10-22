@@ -32,7 +32,7 @@ class Skeletor {
             this.pwm = createPWM({
                 i2c: i2cBus.openSync(1),
                 address: 0x40,
-                frequency: 100,
+                frequency: 50,
                 debug: true
             });
         }
