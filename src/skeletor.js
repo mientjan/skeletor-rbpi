@@ -73,14 +73,14 @@ class Skeletor {
             const pwm = await this.pwm;
 
             pwm.channelOn(this.channel);
-
+            let onStep = 255;
 
             // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-            pwm.setPulseLength(this.channel, 1000);
+            pwm.setPulseLength(this.channel, 1000, onStep);
 
             await new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    pwm.setPulseLength(this.channel, 1500);
+                    pwm.setPulseLength(this.channel, 1500, );
                     resolve();
                 }, 3000);
             });
