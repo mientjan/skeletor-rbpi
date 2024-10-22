@@ -46,10 +46,16 @@ class Skeletor {
     }
 
     setChannel(channel) {
+        if(!channel){
+            return;
+        }
         this.channel = parseInt(channel, 10);
     }
 
     setPulseLength(length) {
+        if(!length){
+            return;
+        }
         this.pulseLength = parseInt(length, 10);
     }
 
