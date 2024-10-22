@@ -81,21 +81,21 @@ class Skeletor {
                 setTimeout(() => {
                     pwm.setPulseLength(this.channel, 1500);
                     resolve();
-                });
+                }, 1000);
             });
 
             await new Promise((resolve, reject) => {
                 setTimeout(() => {
                     pwm.setPulseLength(this.channel, 2000);
                     resolve();
-                });
+                }, 1000);
             });
 
             await new Promise((resolve, reject) => {
                 setTimeout(() => {
                     pwm.setPulseLength(this.channel, 1500);
                     resolve();
-                });
+                }, 1000);
             });
 
 
