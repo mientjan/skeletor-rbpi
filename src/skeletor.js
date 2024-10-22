@@ -17,7 +17,7 @@ class Skeletor {
         this.name = 'Skeletor';
 
         this.onStep = 42;
-        this.offStep = 255;
+        this.offStep = 1000;
         this.channel = 4;
         this.pulseLength = 1500;
         this.angle = 0;
@@ -77,6 +77,13 @@ class Skeletor {
 
             // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
             pwm.setPulseLength(this.channel, 1000, onStep);
+
+            await new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    pwm.setPulseRange(this.channel, this.onStep, this.offStep);
+                    resolve();
+                }, 3000);
+            });
 
             await new Promise((resolve, reject) => {
                 setTimeout(() => {
