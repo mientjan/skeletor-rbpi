@@ -87,6 +87,8 @@ class Skeletor {
 
         console.log({leftAngle, rightAngle, a, b});
 
+        console.log('Setting head angles:', leftAngle, this.flipValue(rightAngle, maxAngle));
+
         this.head.left.angle = leftAngle;
         this.head.right.angle = this.flipValue(rightAngle, maxAngle);
 
