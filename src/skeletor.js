@@ -81,8 +81,8 @@ class Skeletor {
         if (this.pwm) {
 
             const pwd = await this.pwm;
-            pwm.setPulseLength(this.head.left.channel, this.pulseLengthForAngle(this.head.left.angle));
-            pwm.setPulseLength(this.head.right.channel, this.pulseLengthForAngle(this.head.right.angle));
+            pwd.setPulseLength(this.head.left.channel, this.pulseLengthForAngle(this.head.left.angle));
+            pwd.setPulseLength(this.head.right.channel, this.pulseLengthForAngle(this.head.right.angle));
         }
     }
 }
