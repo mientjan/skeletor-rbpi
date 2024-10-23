@@ -71,7 +71,7 @@ class Skeletor {
 
         // calculates how much to turn the head left or right
         let a = x0 * 45;
-        let b = -x0 * 45;
+        let b = x0 * 45;
 
         leftAngle += a;
         rightAngle += b;
