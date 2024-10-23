@@ -53,11 +53,11 @@ class Skeletor {
     /**
      * @param axes {axes: array, x0: number, y0: number, x1: number, y1: number}
      */
-    setByGameControllerAxes(axes) {
-        console.log({axes});
-        const {x0, y0, x1, y1} = axes;
-        const leftAngle = ((x0+1) * 45);
-        const rightAngle = ((y0+1) * 45);
+    setByGameControllerAxes(data) {
+        const {x0, y0} = data;
+        console.log({x0, y0});
+        const leftAngle = ((x0+1) * 90);
+        const rightAngle = ((y0+1) * 90);
 
         this.head.left.angle = leftAngle;
         this.head.right.angle = rightAngle;

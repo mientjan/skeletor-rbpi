@@ -24,7 +24,6 @@ io.on('connection', (socket) => {
 
     // Listen for incoming instructions
     socket.on('head', (event) => {
-        console.log('Received head:', event);
 
         let skeletor = Skeletor.getInstance();
         skeletor.setByGameControllerAxes(event.data);
