@@ -1,4 +1,3 @@
-
 const fs = require("fs");
 const isRBPI = require("./lib/isRBPI");
 
@@ -16,12 +15,25 @@ class Skeletor {
     constructor() {
         this.name = 'Skeletor';
 
-        this.onStep = 42;
-        this.offStep = 1000;
-        this.channel = 4;
-        this.pulseLength = 1500;
-        this.angle = 0;
+        this.head = {
+            left: {
+                channel: 4,
+                angle: 90,
+            },
+            right: {
+                channel: 5,
+                angle: 90,
+            }
+        }
 
+        // this.channels = [];
+        //
+        // for (let i = 0; i < 16; i++) {
+        //     this.channels.push({
+        //         on: false,
+        //         angle: 90
+        //     });
+        // }
 
 
         if (isRBPI()) {
@@ -38,144 +50,20 @@ class Skeletor {
         }
     }
 
-    setOnStep(step) {
-        step = parseFloat(step);
-        step = Math.max(0, step);
-        step = Math.min(4095, step);
-        this.onStep = step;
+    /**
+     * @param axes {axes: array, x0: number, y0: number, x1: number, y1: number}
+     */
+    setByGameControllerAxes(axes) {
+        console.log({axes});
+        const {x0, y0, x1, y1} = axes;
+        const leftAngle = ((x0+1) * 45);
+        const rightAngle = ((y0+1) * 45);
+
+        this.head.left.angle = leftAngle;
+        this.head.right.angle = rightAngle;
+
+        this.update();
     }
-
-    setOffStep(step) {
-        step = parseFloat(step);
-        step = Math.max(0, step);
-        step = Math.min(4095, step);
-        this.offStep = step;
-    }
-
-    setChannel(channel) {
-        if(!channel){
-            return;
-        }
-        this.channel = parseInt(channel, 10);
-    }
-
-    setPulseLength(length) {
-        if(!length){
-            return;
-        }
-        this.pulseLength = parseInt(length, 10);
-    }
-
-    setType(type) {
-        if(!type){
-            return;
-        }
-        this.type = type;
-    }
-
-    setAngle(angle) {
-        if(!angle){
-            return;
-        }
-        this.angle = parseInt(angle, 10);
-    }
-
-    async go() {
-        if (isRBPI()) {
-            const pwm = await this.pwm;
-            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-
-            // switch (this.type) {
-            //     case 'test1': {
-            //
-            //         const pwm = await this.pwm;
-            //
-            //         pwm.channelOn(this.channel);
-            //         pwm.setPulseLength(this.channel, this.pulseLength);
-            //         break;
-            //     }
-            //
-            //     case 'test2': {
-            //
-            //         const pwm = await this.pwm;
-            //
-            //         pwm.channelOn(this.channel);
-            //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-            //         break;
-            //     }
-            // }
-        }
-    }
-
-    async test() {
-
-        if (isRBPI()) {
-            const pwm = await this.pwm;
-
-            pwm.channelOn(this.channel);
-            let onStep = 255;
-
-            pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-            // pwm.setPulseLength(this.channel, 1000, onStep);
-
-            // await new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-            //         resolve();
-            //     }, 3000);
-            // });
-            //
-            // await new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         pwm.setPulseLength(this.channel, 1500, );
-            //         resolve();
-            //     }, 3000);
-            // });
-            //
-            // await new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         pwm.setPulseLength(this.channel, 2000);
-            //         resolve();
-            //     }, 1000);
-            // });
-            //
-            // await new Promise((resolve, reject) => {
-            //     setTimeout(() => {
-            //         pwm.setPulseLength(this.channel, 1500);
-            //         resolve();
-            //     }, 1000);
-            // });
-
-            pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-
-
-
-
-
-            // await new Promise((resolve, reject) => {
-            // });
-        } else {
-            console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
-        }
-    }
-
-    // updateStep() {
-    //
-    //     if (isRBPI()) {
-    //         const pwm = await this.pwm;
-    //
-    //         pwm.channelOn(this.channel);
-    //
-    //         // pwm.setPulseLength(this.channel, this.pulseLengthForAngle(this.angle));
-    //         pwm.setPulseRange(this.channel, this.onStep, this.offStep);
-    //
-    //         // await new Promise((resolve, reject) => {
-    //         //     pwm.setPulseRange(this.channel, this.onStep, this.offStep, resolve);
-    //         // });
-    //     } else {
-    //         console.log(this.channel, this.pulseLength, this.onStep, this.offStep);
-    //     }
-    // }
 
     pulseLengthForAngle(angle) {
         const minPulseLength = 500;   // Pulse length at 0 degrees (µs)
@@ -185,6 +73,15 @@ class Skeletor {
 
         // Linear mapping of angle to pulse length
         return ((angle - minAngle) * (maxPulseLength - minPulseLength) / (maxAngle - minAngle)) + minPulseLength;
+    }
+
+    update() {
+        console.log('Updating head:', this.head);
+
+        if (this.pwm) {
+            this.pwm.setPulseLength(this.head.left.channel, this.pulseLengthForAngle(this.head.left.angle));
+            this.pwm.setPulseLength(this.head.right.channel, this.pulseLengthForAngle(this.head.right.angle));
+        }
     }
 }
 

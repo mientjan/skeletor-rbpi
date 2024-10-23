@@ -23,6 +23,13 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // Listen for incoming instructions
+    socket.on('head', (event) => {
+        console.log('Received head:', event);
+
+        let skeletor = Skeletor.getInstance();
+        skeletor.setByGameControllerAxes(event.data);
+    });
+
     socket.on('instruction', (data) => {
         console.log('Received instruction:', data);
 
@@ -33,6 +40,7 @@ io.on('connection', (socket) => {
                 skeletor.setOnStep(data.value);
                 break;
             case 'angle':
+
                 skeletor.setAngle(data.value);
                 break;
             case 'off':

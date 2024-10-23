@@ -25,3 +25,10 @@ function sendServo(type, value) {
 socket.on('instruction', (data) => {
     console.log('Received instruction from server:', data);
 });
+
+const controllers = new GameControllers();
+
+controllers.addEventListeners('gamepad0:axes', (data) => {
+    socket.emit('head', {type: 'gamepad0:axes', data});
+});
+
