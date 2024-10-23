@@ -67,7 +67,7 @@ class Skeletor {
         // leftAngle = 90 + (y0 * 90);
         // rightAngle = 90 + (y0 * 90);
 
-        console.log('-----');
+        console.log(`--${x0}--${y0}--`);
 
         // calculates how much to turn the head left or right
         let a = x0 * 45;
