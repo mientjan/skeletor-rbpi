@@ -96,6 +96,9 @@ class Skeletor {
         this.head.left.angle = leftAngle;
         this.head.right.angle = this.flipValue(rightAngle, maxAngle);
 
+        this.head.left.angle = Math.min(Math.max(this.head.left.angle, 45), 135);
+        this.head.right.angle = Math.min(Math.max(this.head.right.angle, 45), 135);
+
         this.update();
     }
 
