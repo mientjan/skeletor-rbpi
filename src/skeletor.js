@@ -56,23 +56,24 @@ class Skeletor {
     setByGameControllerAxes(data) {
         let {x0, y0} = data;
 
-        const maxAngle = 90;
+        const maxAngle = 180;
+        const delta = 45;
         const minAngle = 0;
 
-        x0 = (x0 + 1) / 2;
-        y0 = (y0 + 1) / 2;
+        // x0 = (x0) / 2;
+        // y0 = (y0) / 2;
 
-        let leftAngle = 0;
-        let rightAngle = 0;
+        let leftAngle = 90;
+        let rightAngle = 90;
 
         // leftAngle = 90 + (y0 * 90);
         // rightAngle = 90 + (y0 * 90);
 
-        console.log(`--${x0}--${y0}--`);
+        console.log(`--[${x0}]--[${y0}]--`);
 
         // calculates how much to turn the head left or right
-        let a = x0 * maxAngle;
-        let b = x0 * maxAngle;
+        let a = x0 * delta;
+        let b = x0 * delta;
 
         leftAngle += a;
         rightAngle += b;
