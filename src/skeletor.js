@@ -75,12 +75,14 @@ class Skeletor {
         return ((angle - minAngle) * (maxPulseLength - minPulseLength) / (maxAngle - minAngle)) + minPulseLength;
     }
 
-    update() {
+    async update() {
         console.log('Updating head:', this.head);
 
         if (this.pwm) {
-            this.pwm.setPulseLength(this.head.left.channel, this.pulseLengthForAngle(this.head.left.angle));
-            this.pwm.setPulseLength(this.head.right.channel, this.pulseLengthForAngle(this.head.right.angle));
+
+            const pwd = await this.pwm;
+            pwm.setPulseLength(this.head.left.channel, this.pulseLengthForAngle(this.head.left.angle));
+            pwm.setPulseLength(this.head.right.channel, this.pulseLengthForAngle(this.head.right.angle));
         }
     }
 }
