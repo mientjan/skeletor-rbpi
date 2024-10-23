@@ -17,11 +17,11 @@ class Skeletor {
 
         this.head = {
             left: {
-                channel: 4,
+                channel: 5,
                 angle: 90,
             },
             right: {
-                channel: 5,
+                channel: 4,
                 angle: 90,
             }
         }
@@ -82,7 +82,7 @@ class Skeletor {
         b = y0 * 45;
 
         leftAngle += (y0 * 45);
-        rightAngle += (y0 * 45);
+        rightAngle += (-y0 * 45);
 
         console.log({leftAngle, rightAngle, a, b});
 
