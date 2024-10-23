@@ -45,7 +45,7 @@ class Skeletor {
                 i2c: i2cBus.openSync(1),
                 address: 0x40,
                 frequency: 50,
-                debug: true
+                debug: false
             });
         }
     }
@@ -54,12 +54,13 @@ class Skeletor {
      * @param axes {axes: array, x0: number, y0: number, x1: number, y1: number}
      */
     setByGameControllerAxes(data) {
-        const {x0, y0} = data;
+        let {x0, y0} = data;
 
         const maxAngle = 180;
         const minAngle = 0;
 
-
+        x0 = (x0 + 1) / 2;
+        y0 = (y0 + 1) / 2;
 
         let leftAngle = 90;
         let rightAngle = 90;
@@ -70,8 +71,8 @@ class Skeletor {
         console.log(`--${x0}--${y0}--`);
 
         // calculates how much to turn the head left or right
-        let a = x0 * 45;
-        let b = x0 * 45;
+        let a = this.flipValue(x0 * maxAngle, maxAngle);
+        let b = this.flipValue(x0 * maxAngle, maxAngle);
 
         leftAngle += a;
         rightAngle += b;
@@ -90,6 +91,10 @@ class Skeletor {
         this.head.right.angle = rightAngle;
 
         this.update();
+    }
+
+    flipValue(value, range){
+        return range - value;
     }
 
     pulseLengthForAngle(angle) {
