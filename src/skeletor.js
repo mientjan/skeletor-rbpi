@@ -71,27 +71,30 @@ class Skeletor {
 
         console.log(`--[${x0}]--[${y0}]--`);
 
-        // calculates how much to turn the head left or right
-        let a = x0 * delta;
-        let b = x0 * delta;
+        let a = 0;
+        let b = 0;
 
-        leftAngle += a;
-        rightAngle += b;
+        // calculates how much to turn the head left or right
+        // let a = x0 * delta;
+        // let b = x0 * delta;
+        //
+        // leftAngle += a;
+        // rightAngle += b;
 
         // console.log({leftAngle, rightAngle, a, b});
         //
-        // a = y0 * 45;
-        // b = y0 * 45;
-        //
-        // leftAngle += (y0 * 45);
-        // rightAngle += (-y0 * 45);
+        a = (y0 * delta);
+        b =  (y0 * delta);
+
+        leftAngle += a;
+        rightAngle += b;
 
         console.log({leftAngle, rightAngle, a, b});
 
         console.log('Setting head angles:', leftAngle, this.flipValue(rightAngle, maxAngle));
 
         this.head.left.angle = leftAngle;
-        this.head.right.angle = this.flipValue(rightAngle, maxAngle);
+        this.head.right.angle = rightAngle;
 
         this.update();
     }
