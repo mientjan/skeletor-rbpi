@@ -75,11 +75,11 @@ class Skeletor {
         let b = 0;
 
         // calculates how much to turn the head left or right
-        // let a = x0 * delta;
-        // let b = x0 * delta;
-        //
-        // leftAngle += a;
-        // rightAngle += b;
+        a = x0 * delta;
+        b = -x0 * delta;
+
+        leftAngle += a;
+        rightAngle += b;
 
         // console.log({leftAngle, rightAngle, a, b});
         //
