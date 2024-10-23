@@ -62,8 +62,8 @@ class Skeletor {
         x0 = (x0 + 1) / 2;
         y0 = (y0 + 1) / 2;
 
-        let leftAngle = 90;
-        let rightAngle = 90;
+        let leftAngle = 0;
+        let rightAngle = 0;
 
         // leftAngle = 90 + (y0 * 90);
         // rightAngle = 90 + (y0 * 90);
