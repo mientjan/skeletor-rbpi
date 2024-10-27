@@ -29,6 +29,15 @@ io.on('connection', (socket) => {
         skeletor.setByGameControllerAxes(event.data);
     });
 
+    // Listen for incoming instructions
+    socket.on('mouth', (event) => {
+
+        let skeletor = Skeletor.getInstance();
+        skeletor.setMouth(event.data.value);
+
+        // console.log(event);
+    });
+
     socket.on('instruction', (data) => {
         console.log('Received instruction:', data);
 

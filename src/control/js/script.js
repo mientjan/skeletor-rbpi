@@ -32,3 +32,7 @@ controllers.addEventListeners('gamepad0:axes', (data) => {
     socket.emit('head', {type: 'gamepad0:axes', data});
 });
 
+controllers.addEventListeners('gamepad0:button7', (data) => {
+    socket.emit('mouth', {type: 'gamepad0:button7', data});
+});
+

@@ -102,6 +102,14 @@ class Skeletor {
         this.update();
     }
 
+    async setMouth(value){
+        if (this.pwm) {
+
+            const pwd = await this.pwm;
+            pwd.setPulseLength(7, 45 * value);
+        }
+    }
+
     flipValue(value, range){
         return range - value;
     }

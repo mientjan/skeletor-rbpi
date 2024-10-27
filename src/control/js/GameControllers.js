@@ -1,4 +1,13 @@
 class GameControllers {
+
+
+    mapping = {
+        r2: {
+            index: 7,
+            value: 1,
+        }
+    };
+
     constructor(props = {debug: true}) {
         this.shouldDebug = props.debug || false;
         this.gamepads = [];
@@ -43,13 +52,13 @@ class GameControllers {
         this.gamepads = this.gamepads.filter((gp) => gp.id !== gamepad.id);
     }
 
-    debug(){
-        if(this.shouldDebug){
+    debug() {
+        if (this.shouldDebug) {
             console.log.apply(console, arguments);
         }
     }
 
-    loop(){
+    loop() {
 
         this.gamepads.forEach((gamepad) => {
             const pad = navigator.getGamepads()[gamepad.index];
@@ -57,7 +66,7 @@ class GameControllers {
             const padAxesSum = pad.axes.reduce((acc, val) => acc + val, 0);
             const cachedPadAxesSum = cachedPad.axes.reduce((acc, val) => acc + val, 0);
 
-            if(padAxesSum !== cachedPadAxesSum){
+            if (padAxesSum !== cachedPadAxesSum) {
                 this.triggerEventListener(`gamepad${gamepad.index}:axes`, {
                     axes: pad.axes,
                     x0: pad.axes[0],
@@ -67,9 +76,21 @@ class GameControllers {
                 });
                 this._cacheGamepad(pad);
             }
-        });
 
-        // window.requestAnimationFrame(this.loop.bind(this));
+            pad.buttons.forEach((button, index) => {
+                if (button.value !== cachedPad.buttons[index].value) {
+                    this.triggerEventListener(`gamepad${gamepad.index}:button${index}`, {
+                        buttonIndex: index,
+                        value: button.value,
+                        pressed: button.pressed,
+                        touched: button.touched
+                    });
+                    this._cacheGamepad(pad);
+                }
+            });
+
+            // window.requestAnimationFrame(this.loop.bind(this));
+        });
     }
 
     /**
@@ -81,7 +102,7 @@ class GameControllers {
      * @param {function} fn
      */
     addEventListeners(eventName, fn) {
-        if(!this._events[eventName]){
+        if (!this._events[eventName]) {
             this._events[eventName] = [];
         }
         this._events[eventName].push(fn);
@@ -89,9 +110,9 @@ class GameControllers {
 
     triggerEventListener(eventName, data) {
 
-        if (this._events[eventName]){
+        if (this._events[eventName]) {
             this._events[eventName].forEach((fn) => {
-               fn.call(this, data)
+                fn.call(this, data)
             });
         }
         // this.gamepads.forEach((gamepad) => {
